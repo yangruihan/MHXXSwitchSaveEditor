@@ -512,6 +512,10 @@ namespace MHXXSaveEditor
             Array.Copy(convName, 0, charNameByte, 0, convName.Length); // copy from convname into the charnamebyte (which also leaves the other empty spaces as 00)
             Array.Copy(charNameByte, 0, saveFile, player.SaveOffset + Offsets.NAME_OFFSET, Constants.SIZEOF_NAME); // copy into save file
 
+            // HR
+            byte[] hr = BitConverter.GetBytes((int)numericUpDownHR.Value);
+            Array.Copy(hr, 0, saveFile, player.SaveOffset + Offsets.HUNTER_RANK_OFFSET, 2);
+
             // HR Points
             byte[] hrPoints = BitConverter.GetBytes((int)numericUpDownHRP.Value);
             Array.Copy(hrPoints, 0, saveFile, player.SaveOffset + Offsets.HR_POINTS_OFFSET, 4);
@@ -1654,6 +1658,40 @@ namespace MHXXSaveEditor
                 LoadEquipmentBox();
                 MessageBox.Show("Equipment has been imported, you may find them starting from slot 100-2000", "Import Equipment Box");
             }
+        }
+
+        private void importFromCustomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "MHXX Item Box File (.eqpboXX) | *.eqpboXX";
+            ofd.FilterIndex = 1;
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                ofd.Dispose();
+                return;
+            }
+
+            string filePath = ofd.FileName.ToString();
+            byte[] equipmentLoad = File.ReadAllBytes(filePath);
+            var offset = (int)customOffsetInput.Value;
+            Array.Copy(equipmentLoad, offset * 36, player.EquipmentInfo, offset * 36, (2000 * 36) - (offset * 36));
+            LoadEquipmentBox();
+            MessageBox.Show($"Equipment has been imported, you may find them starting from slot {offset}-2000", "Import Equipment Box");
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void numericUpDownHR_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDownHRP_ValueChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void ListViewPalicoEquipment_SelectedIndexChanged(object sender, EventArgs e)
