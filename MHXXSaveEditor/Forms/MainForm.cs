@@ -1616,7 +1616,9 @@ namespace MHXXSaveEditor
                 Player player = (Player)formatter.Deserialize(stream);
                 stream.Close();
 
+                var oldPlayer = this.player;
                 this.player = player;
+                this.player.SaveOffset = oldPlayer.SaveOffset;
             }
             catch (Exception ex)
             {
