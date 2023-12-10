@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
 
@@ -45,6 +46,8 @@ namespace MHXXSaveEditor
             slot2ToolStripMenuItem.Enabled = false;
             slot3ToolStripMenuItem.Enabled = false;
             convertToolStripMenuItem.Enabled = false;
+            importSlotToolStripMenuItem.Enabled = false;
+            exportCurrentSlotToolStripMenuItem.Enabled = false;
 
             OpenFileDialog ofd = new OpenFileDialog
             {
@@ -132,6 +135,8 @@ namespace MHXXSaveEditor
             saveAsToolStripMenuItem.Enabled = true;
             tabControlMain.Enabled = true;
             convertToolStripMenuItem.Enabled = true;
+            importSlotToolStripMenuItem.Enabled = true;
+            exportCurrentSlotToolStripMenuItem.Enabled = true;
 
             // Extract data from save file
             var ext = new DataExtractor();
@@ -1574,9 +1579,52 @@ namespace MHXXSaveEditor
             MessageBox.Show($"You are now editing the switch version of this save", "Conversion complete");
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void exportCurrentSlotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.
+            SaveFileDialog exportFile = new SaveFileDialog();
+            exportFile.Filter = "MHXX Slot Save File (.slotXX) | *.slotXX";
+
+            if (exportFile.ShowDialog() == DialogResult.OK)
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream(exportFile.FileName, FileMode.Create);
+                formatter.Serialize(stream, player);
+                stream.Close();
+
+                MessageBox.Show("Player Slot has been exported to " + exportFile.FileName.ToString(), "Player Slot Save");
+            }
+        }
+
+        private void importSlotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "MHXX Slot Save File (*.slotXX) | *.slotXX",
+                FilterIndex = 1
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                ofd.Dispose();
+                return;
+            }
+
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream(ofd.FileName, FileMode.Open);
+                Player player = (Player)formatter.Deserialize(stream);
+                stream.Close();
+
+                this.player = player;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Import Got Exception, {ex}", "Error");
+                return;
+            }
+
+            LoadSave();
         }
 
         private void ListViewPalicoEquipment_SelectedIndexChanged(object sender, EventArgs e)

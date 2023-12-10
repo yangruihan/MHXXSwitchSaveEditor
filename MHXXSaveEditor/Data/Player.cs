@@ -1,5 +1,8 @@
-﻿namespace MHXXSaveEditor.Data
+﻿using System;
+
+namespace MHXXSaveEditor.Data
 {
+    [Serializable]
     public class Player
     {
         public int SaveOffset { get; set; }
