@@ -34,20 +34,28 @@ namespace MHXXSaveEditor.Util
             player.MonsterSizes = new byte[Constants.SIZEOF_MONSTERSIZES];
             byte[] itemBytes = new byte[Constants.SIZEOF_ITEMBOX];
 
+            string firstSlot = saveFile[0x13].ToString("X2") + saveFile[0x12].ToString("X2") + saveFile[0x11].ToString("X2") + saveFile[0x10].ToString("X2");
+            string secondSlot = saveFile[0x17].ToString("X2") + saveFile[0x16].ToString("X2") + saveFile[0x15].ToString("X2") + saveFile[0x14].ToString("X2");
+            string thirdSlot = saveFile[0x1B].ToString("X2") + saveFile[0x1A].ToString("X2") + saveFile[0x19].ToString("X2") + saveFile[0x18].ToString("X2");
+
+            int firstOffset = int.Parse(firstSlot, System.Globalization.NumberStyles.HexNumber);
+            int secondOffset = int.Parse(secondSlot, System.Globalization.NumberStyles.HexNumber);
+            int thirdOffset = int.Parse(thirdSlot, System.Globalization.NumberStyles.HexNumber);
+
             if (slot == 1)
             {
-                string firstSlot = saveFile[0x13].ToString("X2") + saveFile[0x12].ToString("X2") + saveFile[0x11].ToString("X2") + saveFile[0x10].ToString("X2");
-                player.SaveOffset = int.Parse(firstSlot, System.Globalization.NumberStyles.HexNumber);
+                player.SaveOffset = firstOffset;
+                player.SaveLen = secondOffset - firstOffset;
             }
             else if (slot == 2)
             {
-                string secondSlot = saveFile[0x17].ToString("X2") + saveFile[0x16].ToString("X2") + saveFile[0x15].ToString("X2") + saveFile[0x14].ToString("X2");
-                player.SaveOffset = int.Parse(secondSlot, System.Globalization.NumberStyles.HexNumber);
+                player.SaveOffset = secondOffset;
+                player.SaveLen = thirdOffset - secondOffset;
             }
             else
             {
-                string thirdSlot = saveFile[0x1B].ToString("X2") + saveFile[0x1A].ToString("X2") + saveFile[0x19].ToString("X2") + saveFile[0x18].ToString("X2");
-                player.SaveOffset = int.Parse(thirdSlot, System.Globalization.NumberStyles.HexNumber);
+                player.SaveOffset = thirdOffset;
+                player.SaveLen = saveFile.Length - 1 - thirdOffset;
             }
 
             // Character Name

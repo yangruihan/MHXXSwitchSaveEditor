@@ -6,6 +6,7 @@ namespace MHXXSaveEditor.Data
     public class Player
     {
         public int SaveOffset { get; set; }
+        public int SaveLen { get; set; }
 
         //General Info
         public string Name { get; set; }

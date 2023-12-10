@@ -1587,10 +1587,8 @@ namespace MHXXSaveEditor
 
             if (exportFile.ShowDialog() == DialogResult.OK)
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream stream = new FileStream(exportFile.FileName, FileMode.Create);
-                formatter.Serialize(stream, player);
-                stream.Close();
+                var content = saveFile.Skip(player.SaveOffset).Take(player.SaveLen).ToArray();
+                File.WriteAllBytes(exportFile.FileName, content);
 
                 MessageBox.Show("Player Slot has been exported to " + exportFile.FileName.ToString(), "Player Slot Save");
             }
@@ -1612,14 +1610,18 @@ namespace MHXXSaveEditor
 
             try
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream stream = new FileStream(ofd.FileName, FileMode.Open);
-                Player player = (Player)formatter.Deserialize(stream);
-                stream.Close();
+                var content = File.ReadAllBytes(ofd.FileName);
+                saveFile = saveFile.Take(player.SaveOffset)
+                    .Concat(content)
+                    .Concat(saveFile.Skip(player.SaveOffset + player.SaveLen))
+                    .ToArray();
 
-                var oldPlayer = this.player;
-                this.player = player;
-                this.player.SaveOffset = oldPlayer.SaveOffset;
+                // Extract data from save file
+                var ext = new DataExtractor();
+                ext.GetInfo(saveFile, currentPlayer, player);
+
+                LoadSave(); // Load save file data into editor
+                Cursor.Current = Cursors.Default;
             }
             catch (Exception ex)
             {
