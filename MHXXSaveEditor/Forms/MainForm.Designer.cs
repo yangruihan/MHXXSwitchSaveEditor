@@ -1616,11 +1616,6 @@
             0,
             0,
             0});
-            this.customOffsetInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.customOffsetInput.Name = "customOffsetInput";
             this.customOffsetInput.Size = new System.Drawing.Size(180, 25);
             this.customOffsetInput.TabIndex = 21;
