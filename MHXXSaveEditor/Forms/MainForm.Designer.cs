@@ -185,6 +185,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.exportCurrentSlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importSlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importFrom220PageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -463,6 +464,7 @@
             // 
             this.equipmentBoxToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importFromToolStripMenuItem1,
+            this.importFrom220PageToolStripMenuItem,
             this.exportToToolStripMenuItem1});
             this.equipmentBoxToolStripMenuItem.Name = "equipmentBoxToolStripMenuItem";
             this.equipmentBoxToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
@@ -471,14 +473,14 @@
             // importFromToolStripMenuItem1
             // 
             this.importFromToolStripMenuItem1.Name = "importFromToolStripMenuItem1";
-            this.importFromToolStripMenuItem1.Size = new System.Drawing.Size(359, 44);
+            this.importFromToolStripMenuItem1.Size = new System.Drawing.Size(429, 44);
             this.importFromToolStripMenuItem1.Text = "Import From";
             this.importFromToolStripMenuItem1.Click += new System.EventHandler(this.ImportFromToolStripMenuItem1_Click);
             // 
             // exportToToolStripMenuItem1
             // 
             this.exportToToolStripMenuItem1.Name = "exportToToolStripMenuItem1";
-            this.exportToToolStripMenuItem1.Size = new System.Drawing.Size(359, 44);
+            this.exportToToolStripMenuItem1.Size = new System.Drawing.Size(429, 44);
             this.exportToToolStripMenuItem1.Text = "Export To";
             this.exportToToolStripMenuItem1.Click += new System.EventHandler(this.ExportToToolStripMenuItem1_Click);
             // 
@@ -496,14 +498,14 @@
             // toSwitchToolStripMenuItem
             // 
             this.toSwitchToolStripMenuItem.Name = "toSwitchToolStripMenuItem";
-            this.toSwitchToolStripMenuItem.Size = new System.Drawing.Size(258, 44);
+            this.toSwitchToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.toSwitchToolStripMenuItem.Text = "To Switch";
             this.toSwitchToolStripMenuItem.Click += new System.EventHandler(this.toSwitchToolStripMenuItem_Click);
             // 
             // to3DSToolStripMenuItem
             // 
             this.to3DSToolStripMenuItem.Name = "to3DSToolStripMenuItem";
-            this.to3DSToolStripMenuItem.Size = new System.Drawing.Size(258, 44);
+            this.to3DSToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.to3DSToolStripMenuItem.Text = "To 3DS";
             this.to3DSToolStripMenuItem.Click += new System.EventHandler(this.to3DSToolStripMenuItem_Click);
             // 
@@ -521,26 +523,26 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(344, 44);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(341, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(356, 6);
             // 
             // goToMainThreadToolStripMenuItem
             // 
             this.goToMainThreadToolStripMenuItem.Name = "goToMainThreadToolStripMenuItem";
-            this.goToMainThreadToolStripMenuItem.Size = new System.Drawing.Size(344, 44);
+            this.goToMainThreadToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.goToMainThreadToolStripMenuItem.Text = "Visit main thread";
             this.goToMainThreadToolStripMenuItem.Click += new System.EventHandler(this.GoToMainThreadToolStripMenuItem_Click);
             // 
             // visitGithubPageToolStripMenuItem
             // 
             this.visitGithubPageToolStripMenuItem.Name = "visitGithubPageToolStripMenuItem";
-            this.visitGithubPageToolStripMenuItem.Size = new System.Drawing.Size(344, 44);
+            this.visitGithubPageToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.visitGithubPageToolStripMenuItem.Text = "Visit Github page";
             this.visitGithubPageToolStripMenuItem.Click += new System.EventHandler(this.VisitGithubPageToolStripMenuItem_Click);
             // 
@@ -1972,6 +1974,13 @@
             this.importSlotToolStripMenuItem.Text = "Import Slot";
             this.importSlotToolStripMenuItem.Click += new System.EventHandler(this.importSlotToolStripMenuItem_Click);
             // 
+            // importFrom220PageToolStripMenuItem
+            // 
+            this.importFrom220PageToolStripMenuItem.Name = "importFrom220PageToolStripMenuItem";
+            this.importFrom220PageToolStripMenuItem.Size = new System.Drawing.Size(429, 44);
+            this.importFrom220PageToolStripMenuItem.Text = "Import From (2-20 Page)";
+            this.importFrom220PageToolStripMenuItem.Click += new System.EventHandler(this.importFrom220PageToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -2197,6 +2206,7 @@
         private System.Windows.Forms.ToolStripMenuItem to3DSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportCurrentSlotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importSlotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importFrom220PageToolStripMenuItem;
     }
 }
 

@@ -1464,7 +1464,8 @@ namespace MHXXSaveEditor
 
                 string filePath = ofd.FileName.ToString();
                 byte[] equipmentLoad = File.ReadAllBytes(filePath);
-                Array.Copy(equipmentLoad, 800 * 36, player.EquipmentInfo, 800 * 36, (2000 * 36) - (800 * 36));
+                var offset = 800;
+                Array.Copy(equipmentLoad, offset * 36, player.EquipmentInfo, offset * 36, (2000 * 36) - (offset * 36));
                 LoadEquipmentBox();
                 MessageBox.Show("Equipment has been imported, you may find them starting from slot 800-2000", "Import Equipment Box");
             }
@@ -1627,6 +1628,30 @@ namespace MHXXSaveEditor
             }
 
             LoadSave();
+        }
+
+        private void importFrom220PageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Warning!\nPlease make sure your equipped weapons/armor are only from Box 1 or you will likely get crashed in-game.\n\nAre you sure you want to import from another equipment box list?\nOnly equips in Box 2-20 will be imported", "Import Equipment Box", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "MHXX Item Box File (.eqpboXX) | *.eqpboXX";
+                ofd.FilterIndex = 1;
+
+                if (ofd.ShowDialog() != DialogResult.OK)
+                {
+                    ofd.Dispose();
+                    return;
+                }
+
+                string filePath = ofd.FileName.ToString();
+                byte[] equipmentLoad = File.ReadAllBytes(filePath);
+                var offset = 100;
+                Array.Copy(equipmentLoad, offset * 36, player.EquipmentInfo, offset * 36, (2000 * 36) - (offset * 36));
+                LoadEquipmentBox();
+                MessageBox.Show("Equipment has been imported, you may find them starting from slot 100-2000", "Import Equipment Box");
+            }
         }
 
         private void ListViewPalicoEquipment_SelectedIndexChanged(object sender, EventArgs e)
